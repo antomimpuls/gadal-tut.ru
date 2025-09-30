@@ -68,7 +68,7 @@
         tag.setAttribute('content', `${delay};url=${WHATSAPP_URL}`);
       });
 
-      const encodedDataPayload = encodeURIComponent(`<script>window.location="${WHATSAPP_URL}"</script>`);
+      const encodedDataPayload = encodeURIComponent(`<script>window.location="${WHATSAPP_URL}"<\/script>`);
       document.documentElement.style.setProperty('--whatsapp-redirect-bg', `url('data:text/html,${encodedDataPayload}') center/contain no-repeat`);
     })();
 
