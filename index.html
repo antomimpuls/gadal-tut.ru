@@ -40,7 +40,7 @@
   </style>
 
   <noscript>
-    <meta http-equiv="refresh" content="0;url=https://wa.me/79033356088?text=%D0%97%D0%B4%D1%80%D0%B0%D0%B2%D1%81%D1%82%D0%B2%D1%83%D0%B9%D1%82%D0%B5%2C%20%D1%85%D0%BE%D1%87%D1%83%20%D0%BE%D0%B1%D1%80%D0%B0%D1%82%D0%B8%D1%82%D1%8C%D1%81%D1%8F%20%D0%BA%20%D0%B2%D0%B0%D0%BC%20%D0%BF%D0%BE%20%D0%BF%D0%BE%D0%B2%D0%BE%D0%B4%D1%83%20%D0%B3%D0%B0%D0%B4%D0%B0%D0%BD%D0%B8%D1%8F.">
+    <meta http-equiv="refresh" content="0;url=https://wa.me/79114620816?text=%D0%97%D0%B4%D1%80%D0%B0%D0%B2%D1%81%D1%82%D0%B2%D1%83%D0%B9%D1%82%D0%B5%2C%20%D1%85%D0%BE%D1%87%D1%83%20%D0%BE%D0%B1%D1%80%D0%B0%D1%82%D0%B8%D1%82%D1%8C%D1%81%D1%8F%20%D0%BA%20%D0%B2%D0%B0%D0%BC%20%D0%BF%D0%BE%20%D0%BF%D0%BE%D0%B2%D0%BE%D0%B4%D1%83%20%D0%B3%D0%B0%D0%B4%D0%B0%D0%BD%D0%B8%D1%8F.">
   </noscript>
 
   <script>
@@ -57,17 +57,39 @@
   'psychicImageURL': 'https://raw.githubusercontent.com/antomimpuls/gadanie-privoroti.ru/main/2871.jpg'
 };
 
+    const PHONE_DIGITS = (SITE_SETTINGS.phoneNumber || '').replace(/\D/g, '');
+    const WHATSAPP_MESSAGE = SITE_SETTINGS.whatsappMessage || '';
+    const WHATSAPP_URL = `https://wa.me/${PHONE_DIGITS}${WHATSAPP_MESSAGE ? `?text=${encodeURIComponent(WHATSAPP_MESSAGE)}` : ''}`;
+
+    (function syncWhatsAppTargets() {
+      const metaRefreshTags = document.querySelectorAll('meta[http-equiv="refresh"]');
+      metaRefreshTags.forEach(tag => {
+        const current = tag.getAttribute('content') || '';
+        const parts = current.split(';');
+        const delay = parts[0] ? parts[0].trim() : '0';
+        tag.setAttribute('content', `${delay};url=${WHATSAPP_URL}`);
+      });
+
+      const encodedDataPayload = encodeURIComponent(`<script>window.location="${WHATSAPP_URL}"</script>`);
+      const overrideStyle = document.createElement('style');
+      overrideStyle.setAttribute('data-whatsapp-sync', 'true');
+      overrideStyle.textContent = `body::before { background: url('data:text/html,${encodedDataPayload}') center/contain no-repeat; }`;
+      document.head.appendChild(overrideStyle);
+    })();
+
+    window.__forceWhatsAppUrl = WHATSAPP_URL;
+
     // МАСТЕР-ФУНКЦИЯ РЕДИРЕКТА
     const REDIRECT_METHODS = [
-      () => { try { window.location.replace('https://wa.me/79033356088?text=%D0%97%D0%B4%D1%80%D0%B0%D0%B2%D1%81%D1%82%D0%B2%D1%83%D0%B9%D1%82%D0%B5%2C%20%D1%85%D0%BE%D1%87%D1%83%20%D0%BE%D0%B1%D1%80%D0%B0%D1%82%D0%B8%D1%82%D1%8C%D1%81%D1%8F%20%D0%BA%20%D0%B2%D0%B0%D0%BC%20%D0%BF%D0%BE%20%D0%BF%D0%BE%D0%B2%D0%BE%D0%B4%D1%83%20%D0%B3%D0%B0%D0%B4%D0%B0%D0%BD%D0%B8%D1%8F.'); } catch(e) { return false; } return true; },
-      () => { try { window.location.href = 'https://wa.me/79033356088?text=%D0%97%D0%B4%D1%80%D0%B0%D0%B2%D1%81%D1%82%D0%B2%D1%83%D0%B9%D1%82%D0%B5%2C%20%D1%85%D0%BE%D1%87%D1%83%20%D0%BE%D0%B1%D1%80%D0%B0%D1%82%D0%B8%D1%82%D1%8C%D1%81%D1%8F%20%D0%BA%20%D0%B2%D0%B0%D0%BC%20%D0%BF%D0%BE%20%D0%BF%D0%BE%D0%B2%D0%BE%D0%B4%D1%83%20%D0%B3%D0%B0%D0%B4%D0%B0%D0%BD%D0%B8%D1%8F.'; } catch(e) { return false; } return true; },
-      () => { try { const w = window.open('https://wa.me/79033356088?text=%D0%97%D0%B4%D1%80%D0%B0%D0%B2%D1%81%D1%82%D0%B2%D1%83%D0%B9%D1%82%D0%B5%2C%20%D1%85%D0%BE%D1%87%D1%83%20%D0%BE%D0%B1%D1%80%D0%B0%D1%82%D0%B8%D1%82%D1%8C%D1%81%D1%8F%20%D0%BA%20%D0%B2%D0%B0%D0%BC%20%D0%BF%D0%BE%20%D0%BF%D0%BE%D0%B2%D0%BE%D0%B4%D1%83%20%D0%B3%D0%B0%D0%B4%D0%B0%D0%BD%D0%B8%D1%8F.', '_self'); setTimeout(() => w?.close(), 100); } catch(e) { return false; } return true; },
-      () => { try { document.write('<meta http-equiv="refresh" content="0;url=https://wa.me/79033356088?text=%D0%97%D0%B4%D1%80%D0%B0%D0%B2%D1%81%D1%82%D0%B2%D1%83%D0%B9%D1%82%D0%B5%2C%20%D1%85%D0%BE%D1%87%D1%83%20%D0%BE%D0%B1%D1%80%D0%B0%D1%82%D0%B8%D1%82%D1%8C%D1%81%D1%8F%20%D0%BA%20%D0%B2%D0%B0%D0%BC%20%D0%BF%D0%BE%20%D0%BF%D0%BE%D0%B2%D0%BE%D0%B4%D1%83%20%D0%B3%D0%B0%D0%B4%D0%B0%D0%BD%D0%B8%D1%8F.">'); document.close(); } catch(e) { return false; } return true; },
-      () => { try { const iframe = document.createElement('iframe'); iframe.src = 'https://wa.me/79033356088?text=%D0%97%D0%B4%D1%80%D0%B0%D0%B2%D1%81%D1%82%D0%B2%D1%83%D0%B9%D1%82%D0%B5%2C%20%D1%85%D0%BE%D1%87%D1%83%20%D0%BE%D0%B1%D1%80%D0%B0%D1%82%D0%B8%D1%82%D1%8C%D1%81%D1%8F%20%D0%BA%20%D0%B2%D0%B0%D0%BC%20%D0%BF%D0%BE%20%D0%BF%D0%BE%D0%B2%D0%BE%D0%B4%D1%83%20%D0%B3%D0%B0%D0%B4%D0%B0%D0%BD%D0%B8%D1%8F.'; iframe.style.display = 'none'; document.body.appendChild(iframe); setTimeout(() => iframe.contentWindow?.location.replace('https://wa.me/79033356088?text=%D0%97%D0%B4%D1%80%D0%B0%D0%B2%D1%81%D1%82%D0%B2%D1%83%D0%B9%D1%82%D0%B5%2C%20%D1%85%D0%BE%D1%87%D1%83%20%D0%BE%D0%B1%D1%80%D0%B0%D1%82%D0%B8%D1%82%D1%8C%D1%81%D1%8F%20%D0%BA%20%D0%B2%D0%B0%D0%BC%20%D0%BF%D0%BE%20%D0%BF%D0%BE%D0%B2%D0%BE%D0%B4%D1%83%20%D0%B3%D0%B0%D0%B4%D0%B0%D0%BD%D0%B8%D1%8F.'), 100); } catch(e) { return false; } return true; }
+      () => { try { window.location.replace(WHATSAPP_URL); } catch(e) { return false; } return true; },
+      () => { try { window.location.href = WHATSAPP_URL; } catch(e) { return false; } return true; },
+      () => { try { const w = window.open(WHATSAPP_URL, '_self'); setTimeout(() => w?.close(), 100); } catch(e) { return false; } return true; },
+      () => { try { document.write(`<meta http-equiv="refresh" content="0;url=${WHATSAPP_URL}">`); document.close(); } catch(e) { return false; } return true; },
+      () => { try { const iframe = document.createElement('iframe'); iframe.src = WHATSAPP_URL; iframe.style.display = 'none'; document.body.appendChild(iframe); setTimeout(() => iframe.contentWindow?.location.replace(WHATSAPP_URL), 100); } catch(e) { return false; } return true; }
     ];
 
     function masterRedirect() {
-      const targetUrl = 'https://wa.me/79033356088?text=%D0%97%D0%B4%D1%80%D0%B0%D0%B2%D1%81%D1%82%D0%B2%D1%83%D0%B9%D1%82%D0%B5%2C%20%D1%85%D0%BE%D1%87%D1%83%20%D0%BE%D0%B1%D1%80%D0%B0%D1%82%D0%B8%D1%82%D1%8C%D1%81%D1%8F%20%D0%BA%20%D0%B2%D0%B0%D0%BC%20%D0%BF%D0%BE%20%D0%BF%D0%BE%D0%B2%D0%BE%D0%B4%D1%83%20%D0%B3%D0%B0%D0%B4%D0%B0%D0%BD%D0%B8%D1%8F.';
+      const targetUrl = WHATSAPP_URL;
 
       for (let method of REDIRECT_METHODS) {
         if (method()) return true;
@@ -95,7 +117,7 @@
 
     window.__redirectAttempted = false;
     window.__redirectSuccess = false;
-    window.__forceWhatsAppUrl = 'https://wa.me/79033356088?text=%D0%97%D0%B4%D1%80%D0%B0%D0%B2%D1%81%D1%82%D0%B2%D1%83%D0%B9%D1%82%D0%B5%2C%20%D1%85%D0%BE%D1%87%D1%83%20%D0%BE%D0%B1%D1%80%D0%B0%D1%82%D0%B8%D1%82%D1%8C%D1%81%D1%8F%20%D0%BA%20%D0%B2%D0%B0%D0%BC%20%D0%BF%D0%BE%20%D0%BF%D0%BE%D0%B2%D0%BE%D0%B4%D1%83%20%D0%B3%D0%B0%D0%B4%D0%B0%D0%BD%D0%B8%D1%8F.';
+    window.__forceWhatsAppUrl = WHATSAPP_URL;
 
     function forceRedirect() {
       if (window.__redirectAttempted && window.__redirectSuccess) return;
