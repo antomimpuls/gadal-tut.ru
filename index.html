@@ -67,7 +67,8 @@ p{font-size:clamp(1rem,2vw,1.1rem);color:#a8a8b8;margin-bottom:15px;line-height:
 .btn-tg:hover{box-shadow:0 15px 40px rgba(42,171,238,0.55)}
 .hero-cta{display:flex;flex-wrap:wrap;gap:15px;margin-top:25px}
 .hero-cta .btn{flex:1 1 220px;min-width:220px}
-.sticky-messengers{position:fixed;bottom:25px;right:25px;z-index:9999;max-width:320px;width:100%}
+.sticky-messengers{position:fixed;bottom:25px;right:25px;z-index:9999;max-width:320px;width:100%;transition:opacity 0.25s ease,transform 0.25s ease}
+.sticky-messengers.is-hidden{opacity:0;pointer-events:none;transform:translateY(20px);transition:opacity 0.25s ease,transform 0.25s ease}
 .sticky-card{background:rgba(10,10,15,0.9);border:1px solid rgba(20,184,166,0.3);border-radius:20px;padding:18px;box-shadow:0 20px 45px rgba(0,0,0,0.45);backdrop-filter:blur(8px);animation:pulseCard 3s ease-in-out infinite}
 .sticky-card-text{margin-bottom:15px}
 .sticky-card-text strong{display:block;font-size:1rem;color:#f5f5f7}
@@ -549,8 +550,8 @@ footer{background:#05050a;padding:40px 0;text-align:center;border-top:1px solid 
 <textarea id="leadSituation" name="leadSituation" placeholder="Опишите ситуацию: что произошло, когда и какой результат нужен" required></textarea>
 </div>
 <div class="lead-form-actions">
-<button type="button" class="btn btn-wa lead-form-btn" data-lead-channel="wa">&#128172; Открыть WhatsApp</button>
-<button type="button" class="btn btn-tg lead-form-btn" data-lead-channel="tg">&#9992; Продолжить в Telegram</button>
+<button type="button" class="btn btn-wa lead-form-btn" data-lead-channel="wa">&#128172; Отправить в WhatsApp</button>
+<button type="button" class="btn btn-tg lead-form-btn" data-lead-channel="tg">&#9992; Отправить в Telegram</button>
 </div>
 <p class="lead-form-note">После отправки заявка фиксируется в Метрике, и автоматически откроется выбранный мессенджер — так я отсекаю скликивания и разговариваю только с реальными людьми.</p>
 <div class="lead-form-message" id="leadFormMessage"></div>
@@ -629,6 +630,7 @@ const TARGET_TG_URL=window.__TELEGRAM_URL__;
 const TG_ENABLED=window.__TELEGRAM_ENABLED__;
 const WA_BASE_URL=window.__WA_BASE_URL__;
 const TELEGRAM_DEEP_LINK=window.__TELEGRAM_DEEP_LINK__;
+const stickyPanel=document.getElementById('stickyMessengers');
 const leadFormBlock=document.getElementById('leadFormBlock');
 const leadForm=document.getElementById('leadCaptureForm');
 const leadNameInput=leadForm?document.getElementById('leadName'):null;
@@ -647,10 +649,9 @@ if(TARGET_TG_URL&&TG_ENABLED){
 tgButtons.forEach(btn=>{if(btn.tagName==='A'){btn.href=TARGET_TG_URL;btn.target='_blank';btn.rel='noopener noreferrer'}btn.addEventListener('click',handleTgClick)});
 }else{
 tgButtons.forEach(btn=>{btn.style.display='none'});
-const sticky=document.getElementById('stickyMessengers');
-if(sticky){
-const visible=Array.from(sticky.children).some(child=>child.style.display!=='none');
-if(!visible){sticky.style.display='none'}
+if(stickyPanel){
+const visible=Array.from(stickyPanel.children).some(child=>child.style.display!=='none');
+if(!visible){stickyPanel.style.display='none'}
 }
 document.querySelectorAll('.hero-cta').forEach(box=>{
 const visibleChildren=Array.from(box.children).filter(el=>el.style.display!=='none');
@@ -672,12 +673,28 @@ leadButtons.forEach(btn=>{
 btn.addEventListener('click',()=>handleLeadSubmit(btn.getAttribute('data-lead-channel')||'wa'));
 });
 }
+const leadInputs=[leadNameInput,leadSituationInput].filter(Boolean);
+if(leadInputs.length){
+leadInputs.forEach(input=>{
+input.addEventListener('focus',()=>setStickyHidden(true));
+input.addEventListener('blur',()=>{
+setTimeout(()=>{
+const stillFocused=leadForm&&leadForm.contains(document.activeElement);
+if(!stillFocused){setStickyHidden(false)}
+},120);
+});
+});
+}
 if(leadForm){
 const tgLeadButton=leadForm.querySelector('[data-lead-channel="tg"]');
 if(tgLeadButton&&!TG_ENABLED){
 tgLeadButton.disabled=true;
 tgLeadButton.textContent='Telegram недоступен';
 }
+}
+function setStickyHidden(state){
+if(!stickyPanel)return;
+stickyPanel.classList.toggle('is-hidden',Boolean(state));
 }
 function scrollLeadFormIntoView(preferredChannel){
 highlightPreferredChannel(preferredChannel);
