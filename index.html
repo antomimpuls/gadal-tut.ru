@@ -22,7 +22,7 @@ const SITE_SETTINGS = {
   'redirectDelaySeconds': 15,
   'siteUrl': 'https://gadal-tut.ru/',
   'whatsappMessage': 'Здравствуйте, хочу обратиться к вам за помощью.',
-  <!-- 'yandexMetrikaId': '104701696', -->
+  'yandexMetrikaId': '104701696',
   'psychicImageURL': 'https://raw.githubusercontent.com/antomimpuls/gadanie-privoroti.ru/main/2871.jpg',
   'workingHours': 'ежедневно',
   'responseTime': '5-15 минут'
@@ -49,6 +49,8 @@ window.__WA_BASE_URL__=WA_BASE_URL;
 window.__TELEGRAM_URL__=TELEGRAM_URL;
 window.__TELEGRAM_ENABLED__=TELEGRAM_ENABLED;
 window.__TELEGRAM_DEEP_LINK__=TELEGRAM_DEEP_LINK;
+const YM_ID=Number(SITE_SETTINGS.yandexMetrikaId||104701696);
+window.__YM_ID__=YM_ID;
 </script>
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
@@ -639,7 +641,11 @@ const leadFormMessage=document.getElementById('leadFormMessage');
 const leadButtons=leadForm?Array.from(leadForm.querySelectorAll('.lead-form-btn')):[];
 let leadHighlightTimer=null;
 const LEAD_GOAL='lead_form';
-const sendGoal=goal=>{if(!goal)return;if(typeof ym==='function'&&SITE_SETTINGS.yandexMetrikaId){try{ym(SITE_SETTINGS.yandexMetrikaId,'reachGoal',goal)}catch(err){}}};
+const sendGoal=goal=>{
+const YM_COUNTER=window.__YM_ID__||104701696;
+if(!goal||!YM_COUNTER)return;
+if(typeof ym==='function'){try{ym(YM_COUNTER,'reachGoal',goal)}catch(err){}}
+};
 const waButtons=Array.from(document.querySelectorAll('[data-wa],.btn[href*="whatsapp"],.btn[href*="wa.me"]'));
 const handleWaClick=()=>sendGoal('wa_click');
 waButtons.forEach(btn=>{if(btn.tagName==='A'){btn.href=TARGET_WA_URL;btn.target='_blank';btn.rel='noopener noreferrer'}btn.addEventListener('click',handleWaClick)});
@@ -828,17 +834,18 @@ window.onclick=function(e){const modal=document.getElementById('privacyModal');i
 </script>
 
 <script type="text/javascript">
-if(SITE_SETTINGS.yandexMetrikaId){
 (function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
 m[i].l=1*new Date();
 for(var j=0;j<document.scripts.length;j++){if(document.scripts[j].src===r){return}}
 k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)})
 (window,document,"script","https://mc.yandex.ru/metrika/tag.js","ym");
-ym(SITE_SETTINGS.yandexMetrikaId,"init",{clickmap:true,trackLinks:true,accurateTrackBounce:true,webvisor:true,ecommerce:"dataLayer"});
-}
+ym(104701696,"init",{clickmap:true,trackLinks:true,accurateTrackBounce:true,webvisor:true,ecommerce:"dataLayer"});
 </script>
-<noscript><div><img src="https://mc.yandex.ru/watch/913556204" style="position:absolute;left:-9999px;" alt="" id="ymImg"/></div></noscript>
-<script>if(SITE_SETTINGS.yandexMetrikaId){const ymImg=document.getElementById('ymImg');if(ymImg){ymImg.src=`https://mc.yandex.ru/watch/${SITE_SETTINGS.yandexMetrikaId}`}}</script>
+<noscript><div><img src="https://mc.yandex.ru/watch/104701696" style="position:absolute;left:-9999px;" alt="" id="ymImg"/></div></noscript>
+<script>
+const ymImg=document.getElementById('ymImg');
+if(ymImg&&window.__YM_ID__){ymImg.src=`https://mc.yandex.ru/watch/${window.__YM_ID__}`}
+</script>
 
 </body>
 </html>
