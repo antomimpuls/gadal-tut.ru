@@ -22,7 +22,7 @@ const SITE_SETTINGS = {
   'redirectDelaySeconds': 15,
   'siteUrl': 'https://gadal-tut.ru/',
   'whatsappMessage': 'Здравствуйте, хочу обратиться к вам за помощью.',
-  'yandexMetrikaId': '104701696',
+  <!-- 'yandexMetrikaId': '104701696', -->
   'psychicImageURL': 'https://raw.githubusercontent.com/antomimpuls/gadanie-privoroti.ru/main/2871.jpg',
   'workingHours': 'ежедневно',
   'responseTime': '5-15 минут'
@@ -550,8 +550,8 @@ footer{background:#05050a;padding:40px 0;text-align:center;border-top:1px solid 
 <textarea id="leadSituation" name="leadSituation" placeholder="Опишите ситуацию: что произошло, когда и какой результат нужен" required></textarea>
 </div>
 <div class="lead-form-actions">
-<button type="button" class="btn btn-wa lead-form-btn" data-lead-channel="wa">&#128172; Отправить в WhatsApp</button>
-<button type="button" class="btn btn-tg lead-form-btn" data-lead-channel="tg">&#9992; Отправить в Telegram</button>
+<a href="https://wa.me/79094174862" class="btn btn-wa lead-form-btn" data-lead-channel="wa">&#128172; Отправить в WhatsApp</a>
+<a href="https://t.me/vedunya_msk" class="btn btn-tg lead-form-btn" data-lead-channel="tg">&#9992; Отправить в Telegram</a>
 </div>
 <p class="lead-form-note">После отправки заявка фиксируется в Метрике, и автоматически откроется выбранный мессенджер — так я отсекаю скликивания и разговариваю только с реальными людьми.</p>
 <div class="lead-form-message" id="leadFormMessage"></div>
@@ -670,7 +670,10 @@ scrollLeadFormIntoView(preferred);
 }
 if(leadButtons.length){
 leadButtons.forEach(btn=>{
-btn.addEventListener('click',()=>handleLeadSubmit(btn.getAttribute('data-lead-channel')||'wa'));
+btn.addEventListener('click',event=>{
+event.preventDefault();
+handleLeadSubmit(btn.getAttribute('data-lead-channel')||'wa');
+});
 });
 }
 const leadInputs=[leadNameInput,leadSituationInput].filter(Boolean);
