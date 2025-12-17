@@ -156,19 +156,14 @@ p{font-size:clamp(1rem,2vw,1.1rem);color:#a8a8b8;margin-bottom:15px;line-height:
  .age-modal{position:fixed;inset:0;background:rgba(5,5,15,0.92);backdrop-filter:blur(10px);display:flex;align-items:center;justify-content:center;z-index:10000;opacity:0;pointer-events:none;transition:opacity 0.3s ease}
  .age-modal.active{opacity:1;pointer-events:auto}
  .age-modal-overlay{position:absolute;inset:0;background:transparent;cursor:pointer}
- .age-modal-content{position:relative;background:linear-gradient(135deg,rgba(12,12,20,0.96),rgba(15,10,35,0.96));border-radius:24px;max-width:520px;width:92%;padding:28px 24px;border:1px solid rgba(94,234,212,0.3);box-shadow:0 30px 70px rgba(0,0,0,0.65);text-align:center;max-height:90vh;overflow:hidden}
- .age-modal-body{max-height:calc(90vh - 48px);overflow-y:auto;padding-right:6px;display:flex;flex-direction:column;gap:12px}
- .age-modal-body::-webkit-scrollbar{width:4px;}
- .age-modal-body::-webkit-scrollbar-thumb{background:rgba(94,234,212,0.6);border-radius:99px;}
+ .age-modal-content{position:relative;background:linear-gradient(135deg,rgba(12,12,20,0.96),rgba(15,10,35,0.96));border-radius:24px;max-width:480px;width:92%;padding:22px 20px;border:1px solid rgba(94,234,212,0.3);box-shadow:0 30px 70px rgba(0,0,0,0.65);text-align:center;overflow:hidden}
  .age-modal-icon{width:68px;height:68px;border-radius:16px;background:linear-gradient(135deg,#5eead4,#0f766e);display:flex;align-items:center;justify-content:center;font-size:2rem;font-weight:800;color:#fff;margin:0 auto 16px;box-shadow:0 15px 30px rgba(94,234,212,0.4)}
  .age-modal-title{font-size:1.6rem;font-weight:700;color:#fff;margin-bottom:12px}
- .age-modal-text{font-size:1rem;color:#cbd5f5;margin-bottom:16px;line-height:1.6}
- .age-modal-benefits{margin-bottom:18px;display:flex;flex-direction:column;gap:10px}
- .age-benefit{display:flex;align-items:center;gap:10px;padding:12px;background:rgba(94,234,212,0.15);border:1px solid rgba(94,234,212,0.35);border-radius:12px;justify-content:center}
- .age-benefit-icon{font-size:1.2rem;color:#d8c9ff}
- .age-modal-checkbox{display:flex;align-items:flex-start;gap:12px;padding:14px;background:rgba(94,234,212,0.12);border:1px solid rgba(94,234,212,0.3);border-radius:12px;cursor:pointer;margin-bottom:18px}
+ .age-modal-text{font-size:1rem;color:#cbd5f5;margin-bottom:10px;line-height:1.4}
+ .age-modal-note{font-size:0.9rem;color:#d1f7ff;margin-bottom:14px}
+ .age-modal-checkbox{display:flex;align-items:flex-start;gap:12px;padding:12px;background:rgba(94,234,212,0.12);border:1px solid rgba(94,234,212,0.3);border-radius:12px;cursor:pointer;margin-bottom:16px}
  .age-modal-checkbox input{margin-top:2px;width:18px;height:18px;accent-color:#5eead4;cursor:pointer}
- .age-modal-checkbox span{font-size:0.9rem;color:#fff;line-height:1.5}
+ .age-modal-checkbox span{font-size:0.9rem;color:#fff;line-height:1.4}
 .age-modal-actions{display:flex;flex-direction:column;gap:12px}
 .age-modal-actions .btn{width:100%;font-size:0.95rem;padding:14px 28px}
 .age-confirm-btn:disabled{opacity:0.5;cursor:not-allowed}
@@ -180,11 +175,10 @@ p{font-size:clamp(1rem,2vw,1.1rem);color:#a8a8b8;margin-bottom:15px;line-height:
 .age-unlock-modal p{margin:0;font-size:0.9rem;color:#def3ff}
 .age-unlock-modal .btn{background:rgba(255,255,255,0.12);border:none;box-shadow:none;font-size:0.85rem;padding:8px 20px}
 @media(max-width:640px){
-.age-modal-content{width:95%;padding:20px 18px;}
-.age-modal-title{font-size:1.35rem;}
+.age-modal-content{width:95%;padding:18px 16px;}
+.age-modal-title{font-size:1.4rem;}
 .age-modal-text{font-size:0.95rem;}
 .age-modal-actions .btn{font-size:0.9rem;padding:12px 20px;}
-.age-modal-body{max-height:calc(90vh - 40px);}
 }
 footer{background:#05050a;padding:40px 0;text-align:center;border-top:1px solid rgba(255,255,255,0.05)}
 @media(max-width:1024px){
@@ -635,16 +629,11 @@ footer{background:#05050a;padding:40px 0;text-align:center;border-top:1px solid 
 <div class="age-modal" id="ageModal">
   <div class="age-modal-overlay" onclick="closeAgeModal()"></div>
   <div class="age-modal-content">
-    <div class="age-modal-body">
     <button type="button" class="age-modal-close" onclick="closeAgeModal()" aria-label="Закрыть">&times;</button>
     <div class="age-modal-icon">18+</div>
     <h2 class="age-modal-title">Подтвердите возраст</h2>
-    <p class="age-modal-text">Материалы сайта предназначены только для совершеннолетних. Подтвердите, что вам уже есть 18 лет, и получите доступ к контактам.</p>
-    <div class="age-modal-benefits">
-      <div class="age-benefit"><span class="age-benefit-icon">✔</span><span>Ссылки WhatsApp и Telegram откроются сразу</span></div>
-      <div class="age-benefit"><span class="age-benefit-icon">✔</span><span>Телефон и адрес появятся после проверки</span></div>
-      <div class="age-benefit"><span class="age-benefit-icon">✔</span><span>Контакт сохраняется в безопасном режиме</span></div>
-    </div>
+    <p class="age-modal-text">Контакты показываются только взрослым. Подтвердите, что вам есть 18 лет.</p>
+    <p class="age-modal-note">После этого откроются WhatsApp и Telegram, номер останется скрыт, пока не нажмёте «Подтвердить».</p>
     <label class="age-modal-checkbox">
       <input type="checkbox" id="ageConfirmCheckbox">
       <span>Мне исполнилось 18 лет, я принимаю условия</span>
@@ -652,7 +641,6 @@ footer{background:#05050a;padding:40px 0;text-align:center;border-top:1px solid 
     <div class="age-modal-actions">
       <button type="button" class="btn age-confirm-btn" id="ageConfirmBtn" disabled>Подтвердить и открыть контакты</button>
       <button type="button" class="btn age-cancel-btn" onclick="closeAgeModal()">Отмена</button>
-    </div>
     </div>
   </div>
 </div>
