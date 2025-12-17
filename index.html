@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Помощь ведуньи медиум | Приворот Снятие порчи и сглаза</title>
+<title>Помощь ведуньи | Восстановление судьбы и гармонии жизни</title>
 <meta name="description" content="⭐ 17 лет опыта. Возврат любимого, снятие порчи, гадание Таро. 1100+ отзывов. Первая консультация БЕСПЛАТНО!">
 <meta property="og:title" content="Помощь ведуньи — Ритуалы и гармония">
 <meta property="og:description" content="17 лет опыта. 1100+ клиентов. Гарантия результата. Бесплатная консультация!">
@@ -156,7 +156,10 @@ p{font-size:clamp(1rem,2vw,1.1rem);color:#a8a8b8;margin-bottom:15px;line-height:
  .age-modal{position:fixed;inset:0;background:rgba(5,5,15,0.92);backdrop-filter:blur(10px);display:flex;align-items:center;justify-content:center;z-index:10000;opacity:0;pointer-events:none;transition:opacity 0.3s ease}
  .age-modal.active{opacity:1;pointer-events:auto}
  .age-modal-overlay{position:absolute;inset:0;background:transparent;cursor:pointer}
- .age-modal-content{position:relative;background:linear-gradient(135deg,rgba(12,12,20,0.96),rgba(15,10,35,0.96));border-radius:24px;max-width:520px;width:90%;padding:38px 32px;border:1px solid rgba(94,234,212,0.3);box-shadow:0 30px 70px rgba(0,0,0,0.65);text-align:center;overflow:hidden}
+ .age-modal-content{position:relative;background:linear-gradient(135deg,rgba(12,12,20,0.96),rgba(15,10,35,0.96));border-radius:24px;max-width:520px;width:92%;padding:28px 24px;border:1px solid rgba(94,234,212,0.3);box-shadow:0 30px 70px rgba(0,0,0,0.65);text-align:center;max-height:90vh;overflow:hidden}
+ .age-modal-body{max-height:calc(90vh - 48px);overflow-y:auto;padding-right:6px;display:flex;flex-direction:column;gap:12px}
+ .age-modal-body::-webkit-scrollbar{width:4px;}
+ .age-modal-body::-webkit-scrollbar-thumb{background:rgba(94,234,212,0.6);border-radius:99px;}
  .age-modal-icon{width:68px;height:68px;border-radius:16px;background:linear-gradient(135deg,#5eead4,#0f766e);display:flex;align-items:center;justify-content:center;font-size:2rem;font-weight:800;color:#fff;margin:0 auto 16px;box-shadow:0 15px 30px rgba(94,234,212,0.4)}
  .age-modal-title{font-size:1.6rem;font-weight:700;color:#fff;margin-bottom:12px}
  .age-modal-text{font-size:1rem;color:#cbd5f5;margin-bottom:16px;line-height:1.6}
@@ -166,16 +169,23 @@ p{font-size:clamp(1rem,2vw,1.1rem);color:#a8a8b8;margin-bottom:15px;line-height:
  .age-modal-checkbox{display:flex;align-items:flex-start;gap:12px;padding:14px;background:rgba(94,234,212,0.12);border:1px solid rgba(94,234,212,0.3);border-radius:12px;cursor:pointer;margin-bottom:18px}
  .age-modal-checkbox input{margin-top:2px;width:18px;height:18px;accent-color:#5eead4;cursor:pointer}
  .age-modal-checkbox span{font-size:0.9rem;color:#fff;line-height:1.5}
- .age-modal-actions{display:flex;flex-direction:column;gap:12px}
- .age-modal-actions .btn{width:100%;font-size:1rem;padding:16px 32px}
- .age-confirm-btn:disabled{opacity:0.5;cursor:not-allowed}
- .age-cancel-btn{background:rgba(255,255,255,0.12)!important;border:none;box-shadow:none!important}
- .age-cancel-btn:hover{background:rgba(255,255,255,0.2)!important}
- .age-unlock-modal{position:fixed;bottom:110px;left:50%;transform:translateX(-50%) translateY(20px);padding:18px 26px;background:rgba(14,116,144,0.95);border-radius:16px;color:#fff;display:flex;flex-direction:column;gap:8px;align-items:center;z-index:10005;opacity:0;pointer-events:none;transition:opacity 0.3s ease,transform 0.3s ease}
- .age-unlock-modal.visible{opacity:1;transform:translateX(-50%) translateY(0)}
- .age-unlock-modal strong{font-size:1rem;margin-bottom:0}
- .age-unlock-modal p{margin:0;font-size:0.9rem;color:#def3ff}
- .age-unlock-modal .btn{background:rgba(255,255,255,0.12);border:none;box-shadow:none;font-size:0.85rem;padding:8px 20px}
+.age-modal-actions{display:flex;flex-direction:column;gap:12px}
+.age-modal-actions .btn{width:100%;font-size:0.95rem;padding:14px 28px}
+.age-confirm-btn:disabled{opacity:0.5;cursor:not-allowed}
+.age-cancel-btn{background:rgba(255,255,255,0.12)!important;border:none;box-shadow:none!important}
+.age-cancel-btn:hover{background:rgba(255,255,255,0.2)!important}
+.age-unlock-modal{position:fixed;bottom:110px;left:50%;transform:translateX(-50%) translateY(20px);padding:18px 26px;background:rgba(14,116,144,0.95);border-radius:16px;color:#fff;display:flex;flex-direction:column;gap:8px;align-items:center;z-index:10005;opacity:0;pointer-events:none;transition:opacity 0.3s ease,transform 0.3s ease}
+.age-unlock-modal.visible{opacity:1;transform:translateX(-50%) translateY(0)}
+.age-unlock-modal strong{font-size:1rem;margin-bottom:0}
+.age-unlock-modal p{margin:0;font-size:0.9rem;color:#def3ff}
+.age-unlock-modal .btn{background:rgba(255,255,255,0.12);border:none;box-shadow:none;font-size:0.85rem;padding:8px 20px}
+@media(max-width:640px){
+.age-modal-content{width:95%;padding:20px 18px;}
+.age-modal-title{font-size:1.35rem;}
+.age-modal-text{font-size:0.95rem;}
+.age-modal-actions .btn{font-size:0.9rem;padding:12px 20px;}
+.age-modal-body{max-height:calc(90vh - 40px);}
+}
 footer{background:#05050a;padding:40px 0;text-align:center;border-top:1px solid rgba(255,255,255,0.05)}
 @media(max-width:1024px){
 .hero-grid{grid-template-columns:1fr;text-align:center}
@@ -625,6 +635,7 @@ footer{background:#05050a;padding:40px 0;text-align:center;border-top:1px solid 
 <div class="age-modal" id="ageModal">
   <div class="age-modal-overlay" onclick="closeAgeModal()"></div>
   <div class="age-modal-content">
+    <div class="age-modal-body">
     <button type="button" class="age-modal-close" onclick="closeAgeModal()" aria-label="Закрыть">&times;</button>
     <div class="age-modal-icon">18+</div>
     <h2 class="age-modal-title">Подтвердите возраст</h2>
@@ -641,6 +652,7 @@ footer{background:#05050a;padding:40px 0;text-align:center;border-top:1px solid 
     <div class="age-modal-actions">
       <button type="button" class="btn age-confirm-btn" id="ageConfirmBtn" disabled>Подтвердить и открыть контакты</button>
       <button type="button" class="btn age-cancel-btn" onclick="closeAgeModal()">Отмена</button>
+    </div>
     </div>
   </div>
 </div>
