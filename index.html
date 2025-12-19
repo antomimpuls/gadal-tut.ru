@@ -969,9 +969,14 @@ m[i].l=1*new Date();
 for(var j=0;j<document.scripts.length;j++){if(document.scripts[j].src===r){return}}
 k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)})
 (window,document,"script","https://mc.yandex.ru/metrika/tag.js","ym");
-ym(104701696,"init",{clickmap:true,trackLinks:true,accurateTrackBounce:true,webvisor:true,ecommerce:"dataLayer"});
+var dynamicYmId=window.__YM_ID__||(window.__SITE_SETTINGS__&&Number(window.__SITE_SETTINGS__.yandexMetrikaId))||0;
+if(dynamicYmId){
+ym(dynamicYmId,"init",{clickmap:true,trackLinks:true,accurateTrackBounce:true,webvisor:true,ecommerce:"dataLayer"});
+}else{
+console.warn("Yandex.Metrika: не удалось определить идентификатор счётчика.");
+}
 </script>
-<noscript><div><img src="https://mc.yandex.ru/watch/104701696" style="position:absolute;left:-9999px;" alt="" id="ymImg"/></div></noscript>
+<noscript><div><img src="https://mc.yandex.ru/watch/105895218" style="position:absolute;left:-9999px;" alt="" id="ymImg"/></div></noscript>
 <script>
 const ymImg=document.getElementById('ymImg');
 if(ymImg&&window.__YM_ID__){ymImg.src=`https://mc.yandex.ru/watch/${window.__YM_ID__}`}
